@@ -1,12 +1,11 @@
 const express = require('express')
-const path = require('path')
-const crypto = require('crypto')//to generate file name
 const mongoose = require('mongoose')
 const multer = require('multer')
 const GridFsStorage = require('multer-gridfs-storage')
 const Grid = require('gridfs-stream')
 const app = express()
-const model = require('./model');
+const cors = require('cors');// To avoid CORS security error
+app.use(cors()); 
 
 let conn = mongoose.connection;
 let gfs;
@@ -39,6 +38,11 @@ app.post("/upload",upload.single("upload"),(req,res)=>{
   res.json({file:req.file})
 })
 
+app.get('/', (req, res) => {
+  res.send({
+    msg: "conmection successful."
+  });
+});
 
 app.get('/files', (req, res) => {
   gfs.files.find().toArray((err, files) => {
@@ -79,7 +83,7 @@ app.get('/image/:filename', (req, res) => {
       if (file.contentType === 'image/jpeg' || file.contentType === "image/png") {
           //read output to browser
           const readStream = gfs.createReadStream(file.filename)
-          readStream.pipe(res)
+          readStream.pipe(res);
       } else {
           res.status(404).json({
               err: "Not an image"

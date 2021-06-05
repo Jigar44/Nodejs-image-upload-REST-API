@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Image upload API ",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Jigar44/Nodejs-image-upload-REST-API.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -10,6 +14,7 @@
   "author": "Jigar Rabadiya",
   "license": "ISC",
   "devDependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "mongoose": "^5.12.13",
